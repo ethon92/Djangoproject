@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+    <!--icon-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'CSS/image/icon.png' %}"/>
+
+</head>
+<body>
+
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    {{ Form.as_p }}
+    <input type="submit" value="Upload">
+</form>
+
+<!--{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}-->
+
+</body>
+</html>

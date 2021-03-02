@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!--icon-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'CSS/image/icon.png' %}"/>
+    <link href="{% static '/CSS/login_style.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<div id="bg" style="background-image: url('{% static 'CSS/image/login_background.jpg' %}')"></div>
+
+<form method="POST" id="login"enctype="multipart/form-data">{% csrf_token %}
+
+    <label for=""></label>
+    {{ Form.as_p }}
+    <button type="submit">Login</button>
+
+</form>
+

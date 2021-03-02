@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        #login{
+            position: absolute;
+            z-index: 0;
+            margin: 230px 600px;
+            border: 10px black;
+            background-color: #b5b5b5;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2),
+                        0 1px 1px rgba(0, 0, 0, 0.2),
+                        0 3px 0 rgb(255,255,255),
+                        0 4px 0 rgba(0, 0, 0, 0.2),
+                        0 6px 0 rgb(255,255,255),
+                        0 7px 0 rgba(0, 0, 0, 0.2);
+        }
+        #login:before{
+            content: '';
+            position: absolute;
+            z-index: -1;
+            border: 1px dashed #cccccc;/*gray80*/
+            top: 5px;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            box-shadow: 0 0 0 1px #ffffff;/*white*/
+        }
+        h1{
+            text-shadow: 0 1px rgba(255, 255, 255, 0.7), 0px 2px 0 rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;/*全大寫*/
+            text-align: center;
+            color: #666666;/*gray40*/
+            letter-spacing: 4px;
+            font: normal 26px/1 Verdana, Helvetica;
+            position: relative;
+        }
+        h1:after,
+        h1:before{
+            background-color: #666666;
+            content: "";
+            height: 2px;
+            position: absolute;
+            top: 15px;
+            width: 70px;
+        }
+        h1:after{
+            right: 0;
+            background-image: linear-gradient( to right, #666666, #ffffffff);
+        }
+        h1:before{
+            background-image: linear-gradient( to left, #666666, #ffffffff);
+            left: 0;
+        }
+        body{
+            background-image: url("{% static '/CSS/image/home-bg.jpg' %}");
+        }
+        #actions{
+            border: none;
+        }
+        #submit{
+            margin: 0 100px;
+        }
+    </style>
+
+    <!--icon-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'CSS/image/icon.png' %}"/>
+
+</head>
+<body>
+<form method="POST" id="login"enctype="multipart/form-data">{% csrf_token %}
+    <h1>Log In</h1>
+    <!--<fieldset id="inputs">
+        <input id="username" type="text" placeholder="Username" autofocus required>
+        <input id="password" type="password" placeholder="Password" required>
+    </fieldset>-->
+    <fieldset id="actions">
+        {{ Form.as_p }}
+    </fieldset>
+    <fieldset id="actions">
+        <input type="submit" id="submit" value="Log in">
+    </fieldset>
+</form>
+<!--<form method="POST">{% csrf_token %}
+    {{ Form }}
+    <input type="submit" id="submit" value="Log in">
+</form>-->
+</body>
+</html>

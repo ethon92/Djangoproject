@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Life</title>
+    <style>
+        header{
+            text-align: center;
+            padding-top: 15px;
+        }
+        body{
+            background-color: whitesmoke;
+        }
+        img{
+            width: 100%;
+        }
+        .story{
+            margin: 100px;
+            /*box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)*/
+        }
+        button{
+            background-color:#fff
+        }
+        .tag{
+            float: left;
+            padding:8px 16px;
+            font-size: 30px;
+        }
+        .sidebar{
+            position: absolute;
+            left: 100px;
+        }
+        .foot{
+            position: absolute;
+            left: 100px;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div>
+<!-- Header -->
+<header>
+    <h1><b><a href="{% url 'home' %}">MY BLOG</a></b></h1>
+  <p>Welcome to the blog of unknown</p>
+</header>
+
+ <!--sidebar-->
+<div class="sidebar">
+    <div class="tag"><a href="{% url 'login' %}">login</a></div>
+    {% if request.user.is_authenticated %}
+        <div class="tag"><a href="{% url 'logout' %}">logout</a></div>
+    {% endif %}
+    <div class="tag">link</div>
+</div>
+
+<!-- Blog entries -->
+<div class="story">
+  <!-- Blog entry -->
+    {% for articles in articles %}
+  <div>
+    {% for photo in photo %}
+        {% if photo.photo and photo.article_id == articles.id and photo.first_photo == 1%}
+            <img src="{{ photo.photo.url }}",alt="default">
+        {% else %}
+            <div class="thumbnail thumbnail-default"></div>
+        {% endif %}
+    {% endfor %}
+    <div>
+      <h3><b>{{ articles.title }}</b></h3>
+      <h5>{{ articles.created_at }}</h5>
+    </div>
+
+    <div>
+        {% autoescape off %}
+      <p><pre>{{ articles.content }}</pre></p>
+        {% endautoescape %}
+      <div>
+        <div>
+            {% for photo in photo %}
+                {% if photo.article_id == articles.id and photo.first_photo == 1 %}
+                    <!--<p><button type="button" onclick="location.href='{% url 'post_detail' pk=articles.pk article_id=photo.article_id %}'"><b>READ MORE »</b></button></p>-->
+                    {% if request.user.is_authenticated %}
+                        <p><button type="button" onclick="location.href='{% url 'edit' pk=articles.pk article_id=photo.article_id %}'"><b>EDIT</b></button></p>
+                        <p><button type="button" onclick="location.href='{% url 'delete' pk=articles.pk article_id=photo.article_id %}'"><b>DELETE</b></button></p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if articles.only_article == 1 %}
+                <!--<p><button type="button" onclick="location.href='{% url 'post_detail' pk=articles.pk %}'"><b>READ MORE »</b></button></p>-->
+                {% if request.user.is_authenticated %}
+                    <p><button type="button" onclick="location.href='{% url 'edit' pk=articles.pk %}'"><b>EDIT</b></button></p>
+                    <p><button type="button" onclick="location.href='{% url 'delete' pk=articles.pk %}'"><b>DELETE</b></button></p>
+                {% endif %}
+            {% endif %}
+                </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+    {% endfor %}
+<!-- END BLOG ENTRIES -->
+</div>
+
+    <!-- Footer -->
+<footer class="foot">
+    {% if  articles.has_previous%}
+        <button><a href="?page=1">&laquo; First</a></button>
+        <button><a href="?page={{ articles.previous_page_number }}">« Previous</a></button>
+    {% endif %}
+    {% if articles.has_next %}
+        <button><a href="?page={{ articles.next_page_number }}">Next »</a></button>
+        <button><a href="?page={{ articles.paginator.num_pages }}">Last &raquo;</a></button>
+    {% endif %}
+<!--可再增加自動跑出的數字選頁-->
+</footer>
+
+</body>
+</html>

@@ -20,10 +20,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$)_p$hozvzpurtp#d784j&90zssmhf=m04zx-wiq3jbc@+&bs5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SECURE_HSTS_SECONDS = 3600 #秒數 https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-SECURE_HSTS_SECONDS
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_REFERRER_POLICY = 'origin-when-cross-origin' #https://docs.djangoproject.com/en/3.1/ref/middleware/#referrer-policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
 
 ALLOWED_HOSTS = []
 

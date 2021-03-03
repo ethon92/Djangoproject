@@ -23,7 +23,7 @@ def user_login(request):
             return redirect('/')
             # 尋找如何導向登錄頁
     else:
-        return render(request, 'login.html', {'Form': LoginForm})
+        return render(request, 'login.html', locals())
 
 
 def user_logout(request):
@@ -39,7 +39,7 @@ def post(request):
         Form.save()
         return render(request, "Upload_done.html")
     else:
-        return render(request, "upload.html", {'Form': Form})
+        return render(request, "upload.html",locals())
 
 
 def home(request):
@@ -110,14 +110,14 @@ def home(request):
         page_range.append(paginator.num_pages)
         #剩下第一頁會出現兩頁跟最後一頁會出現兩頁和多一頁
 
-    return render(request, "home.html", {"posts": posts, "page_range": page_range})
+    return render(request, "home.html",locals())
 
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     previous_post = Post.objects.filter(created_at__gt=post.created_at).first()
     next_post = Post.objects.filter(created_at__lt=post.created_at).last()
-    return render(request, "post.html", {"post": post, "previous_post": previous_post, "next_post": next_post})
+    return render(request, "post.html", locals())
 
 
 def delete(request, pk):
@@ -135,7 +135,7 @@ def edit(request, pk):
             return render(request, "Upload_done.html")
     else:
         Form = PostForm(instance=post_object)
-        return render(request, "upload.html", {'Form': Form})
+        return render(request, "upload.html", locals())
 
 
 
